@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://cuhibkflx0jot"]
+[gd_scene load_steps=4 format=3 uid="uid://cuhibkflx0jot"]
+
+[ext_resource type="PackedScene" uid="uid://bh6uru0l18un4" path="res://scenes/player_ship/ship.tscn" id="1_2ylut"]
+[ext_resource type="PackedScene" uid="uid://cygrbcobyd40k" path="res://effects/space_background.tscn" id="2_r6m4w"]
+[ext_resource type="PackedScene" uid="uid://dg5gcwsswya2s" path="res://scenes/enemies/green_enemy.tscn" id="3_5cxjy"]
 
 [node name="World" type="Node2D"]
+
+[node name="Ship" parent="." instance=ExtResource("1_2ylut")]
+position = Vector2(80, 216)
+
+[node name="SpaceBackground" parent="." instance=ExtResource("2_r6m4w")]
+
+[node name="GreenEnemy" parent="." instance=ExtResource("3_5cxjy")]
+position = Vector2(24, 32)
+
+[node name="GreenEnemy2" parent="." instance=ExtResource("3_5cxjy")]
+position = Vector2(64, 88)
+
+[node name="GreenEnemy3" parent="." instance=ExtResource("3_5cxjy")]
+position = Vector2(128, 40)

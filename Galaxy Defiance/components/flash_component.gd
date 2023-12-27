@@ -20,22 +20,22 @@ var original_sprite_material: Material
 var timer: Timer = Timer.new()
 
 func _ready() -> void:
-	# We have to add the timer as a child of this component in order to use it
-	add_child(timer)
-	
-	# Store the original sprite material
-	original_sprite_material = sprite.material
+    # We have to add the timer as a child of this component in order to use it
+    add_child(timer)
+    
+    # Store the original sprite material
+    original_sprite_material = sprite.material
 
 # This is the function we can use to activate this component
 func flash():
-	# Set the sprite's material to the flash material
-	sprite.material = FLASH_MATERIAL
-	
-	# Start the timer (passing in the flash duration)
-	timer.start(flash_duration)
-	
-	# Wait until the timer times out
-	await timer.timeout
-	
-	# Set the sprite's material back to the original material that we stored
-	sprite.material = original_sprite_material
+    # Set the sprite's material to the flash material
+    sprite.material = FLASH_MATERIAL
+    
+    # Start the timer (passing in the flash duration)
+    timer.start(flash_duration)
+    
+    # Wait until the timer times out
+    await timer.timeout
+    
+    # Set the sprite's material back to the original material that we stored
+    sprite.material = original_sprite_material

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://cygrbcobyd40k"]
+
+[ext_resource type="Texture2D" uid="uid://dlhtf0m2035au" path="res://assets/space.png" id="1_e5pv8"]
+[ext_resource type="Script" path="res://effects/space_background.gd" id="1_j4k1r"]
+[ext_resource type="Texture2D" uid="uid://bjcoatcf5qg2i" path="res://assets/far_stars.png" id="2_amumy"]
+[ext_resource type="Texture2D" uid="uid://dbpu2w8v6bp6o" path="res://assets/close_stars.png" id="3_nm7lk"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="5_opt45"]
+[ext_resource type="Script" path="res://components/move_input_component.gd" id="6_s0iru"]
+[ext_resource type="Resource" uid="uid://bbuho6jm64sq2" path="res://scenes/player_ship/ship_move_stats.tres" id="7_jyo41"]
+
+[node name="SpaceBackground" type="ParallaxBackground"]
+script = ExtResource("1_j4k1r")
+
+[node name="SpaceLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_scale = Vector2(0.125, 0.125)
+motion_mirroring = Vector2(160, 240)
+
+[node name="Space" type="TextureRect" parent="SpaceLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("1_e5pv8")
+stretch_mode = 1
+
+[node name="FarStarsLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(160, 240)
+
+[node name="FarStars" type="TextureRect" parent="FarStarsLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("2_amumy")
+stretch_mode = 1
+
+[node name="CloseStarsLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_mirroring = Vector2(160, 240)
+
+[node name="CloseStars" type="TextureRect" parent="CloseStarsLayer"]
+offset_right = 160.0
+offset_bottom = 240.0
+texture = ExtResource("3_nm7lk")
+stretch_mode = 1
+
+[node name="BlankSprite" type="Sprite2D" parent="."]
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("5_opt45")
+actor = NodePath("../BlankSprite")
+
+[node name="MoveInputComponent" type="Node" parent="." node_paths=PackedStringArray("move_component")]
+script = ExtResource("6_s0iru")
+move_stats = ExtResource("7_jyo41")
+move_component = NodePath("../MoveComponent")

@@ -12,10 +12,10 @@ extends Node
 @export var destroy_effect_spawner_component: SpawnerComponent
 
 func _ready() -> void:
-	# Connect the the no health signal on our stats to the destroy function
-	stats_component.no_health.connect(destroy)
+    # Connect the the no health signal on our stats to the destroy function
+    stats_component.no_health.connect(destroy)
 
 func destroy() -> void:
-	# create an effect (from the spawner component) and free the actor
-	destroy_effect_spawner_component.spawn(actor.global_position)
-	actor.queue_free()
+    # create an effect (from the spawner component) and free the actor
+    destroy_effect_spawner_component.spawn(actor.global_position)
+    actor.queue_free()
