@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameStats" load_steps=2 format=3 uid="uid://djfbwsglxif42"]
+
+[ext_resource type="Script" path="res://scenes/game_stats/game_stats.gd" id="1_ci7og"]
+
+[resource]
+script = ExtResource("1_ci7og")
+score = 0
+high_score = 0
