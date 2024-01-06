@@ -43,7 +43,7 @@ func start_line():
 func end_line():
 	if Input.is_action_just_released("draw"):
 		print("Draw End")
-		attach_visible_on_screen_notifier(line)
+		attach_visible_on_screen_notifier(line, line.width)
 		is_drawing = false
 
 func change_line_joint_mode():
@@ -61,7 +61,7 @@ func move_camera(input_axis: Vector2, delta: float):
 	camera.offset += input_axis * CAMERA_MOVE_SPEED * delta
 
 
-func attach_visible_on_screen_notifier(node: Node2D):
+func attach_visible_on_screen_notifier(node: Node2D, margin: float = 0.0):
 	var min_coords = Vector2.ZERO
 	var max_coords = Vector2.ZERO
 	var res = find_min_max_coords(line.points)
@@ -69,6 +69,7 @@ func attach_visible_on_screen_notifier(node: Node2D):
 	max_coords = res[1]
 	print('Min coords: ', min_coords, ' Max coords: ', max_coords)
 	
+	# For debugging purpose
 	draw_rectangle(min_coords, max_coords)
 	draw_point(min_coords, max_coords)
 	
@@ -76,10 +77,17 @@ func attach_visible_on_screen_notifier(node: Node2D):
 	var height = abs(min_coords.y - max_coords.y)
 	
 	var notifier = VisibleOnScreenNotifier2D.new()
-	notifier.rect = Rect2(min_coords.x, min_coords.y, width, height)
+	# Center pivot of VisibleOnScreenNotifier is up left corner of rect. So it's coordinates is (0, 0)
+	# Add margin to count line width.
+	# Because margin added in 2 sides of both axises it's multiplied by 2
+	notifier.rect = Rect2(0, 0, width + margin * 2, height + margin * 2)
+	# Shift position by margin
+	notifier.position = Vector2(min_coords.x - margin, min_coords.y - margin)
 	print('Notifier Rect: ', notifier.rect)
-	print('Notifier attached to node: ', node)
+	print('Notifier position: ', notifier.position)
+	
 	node.add_child(notifier)
+	print('Notifier attached to node: ', node)
 	notifier.screen_exited.connect(func():
 		print('Delete Node ', node)
 		node.queue_free()
@@ -121,4 +129,5 @@ func draw_point(min_coords, max_coords):
 	center_point.add_point(Vector2(min_coords.x + width / 2 + 5, min_coords.y + height / 2 + 5))
 	center_point.width = 10
 	center_point.default_color = Color.DARK_BLUE
+	center_point.joint_mode = Line2D.LINE_JOINT_ROUND
 	add_child(center_point)
