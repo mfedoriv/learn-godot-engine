@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqmi8r60vh722"]
+
+[ext_resource type="Shader" uid="uid://desapoh2wp7mg" path="res://fragment_shaders/color_replacement/color_replacement.tres" id="1_m2j3e"]
+[ext_resource type="Texture2D" uid="uid://bf7bxp7iaapr1" path="res://fragment_shaders/color_replacement/cute_cat_512.png" id="2_feksa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cy4jt"]
+shader = ExtResource("1_m2j3e")
+
+[node name="ColorReplacementFragmentShader" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_cy4jt")
+position = Vector2(333, 284)
+texture = ExtResource("2_feksa")

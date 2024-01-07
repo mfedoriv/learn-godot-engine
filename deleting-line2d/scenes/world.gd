@@ -4,7 +4,7 @@ const CAMERA_MOVE_SPEED = 300
 
 var is_drawing: bool = false
 var line: Line2D
-var line_joint_mode = 0
+var line_joint_mode = Line2D.LINE_JOINT_ROUND
 
 @onready var camera: Camera2D = $Camera2D
 
@@ -43,7 +43,7 @@ func start_line():
 func end_line():
 	if Input.is_action_just_released("draw"):
 		print("Draw End")
-		attach_visible_on_screen_notifier(line, line.width)
+		attach_visible_on_screen_notifier(line, line.width / 2)
 		is_drawing = false
 
 func change_line_joint_mode():
@@ -71,6 +71,7 @@ func attach_visible_on_screen_notifier(node: Node2D, margin: float = 0.0):
 	
 	# For debugging purpose
 	draw_rectangle(min_coords, max_coords)
+	draw_rectangle(min_coords, max_coords, line.width / 2, Color.CORNFLOWER_BLUE)
 	draw_point(min_coords, max_coords)
 	
 	var width = abs(min_coords.x - max_coords.x)
@@ -109,15 +110,15 @@ func find_min_max_coords(points):
 	return [min_coords, max_coords]
 
 
-func draw_rectangle(min_coords, max_coords):
+func draw_rectangle(min_coords: Vector2, max_coords: Vector2, margin: float = 0.0, color: Color = Color.AQUA):
 	var rect_line = Line2D.new()
-	rect_line.add_point(Vector2(min_coords.x, max_coords.y))
-	rect_line.add_point(Vector2(min_coords.x, min_coords.y))
-	rect_line.add_point(Vector2(max_coords.x, min_coords.y))
-	rect_line.add_point(Vector2(max_coords.x, max_coords.y))
+	rect_line.add_point(Vector2(min_coords.x - margin, max_coords.y + margin))
+	rect_line.add_point(Vector2(min_coords.x - margin, min_coords.y - margin))
+	rect_line.add_point(Vector2(max_coords.x + margin, min_coords.y - margin))
+	rect_line.add_point(Vector2(max_coords.x + margin, max_coords.y + margin))
 	rect_line.closed = true
 	rect_line.width = 3
-	rect_line.default_color = Color.AQUA
+	rect_line.default_color = color
 	add_child(rect_line)
 
 
@@ -128,6 +129,7 @@ func draw_point(min_coords, max_coords):
 	center_point.add_point(Vector2(min_coords.x + width / 2, min_coords.y + height / 2))
 	center_point.add_point(Vector2(min_coords.x + width / 2 + 5, min_coords.y + height / 2 + 5))
 	center_point.width = 10
-	center_point.default_color = Color.DARK_BLUE
+	center_point.default_color = Color.CORNFLOWER_BLUE
 	center_point.joint_mode = Line2D.LINE_JOINT_ROUND
+	center_point.closed = true
 	add_child(center_point)

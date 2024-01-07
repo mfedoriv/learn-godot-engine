@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://7besrptamsyd"]
+
+[ext_resource type="Shader" uid="uid://2ovbcysfo2es" path="res://vertex_shaders/moving_grass/moving_grass.tres" id="1_htvl0"]
+[ext_resource type="Texture2D" uid="uid://dw31mb2xvc06c" path="res://vertex_shaders/moving_grass/grass_256.png" id="2_16l8u"]
+[ext_resource type="Shader" path="res://vertex_shaders/moving_grass/moving_grass.gdshader" id="3_evldt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01ra0"]
+shader = ExtResource("1_htvl0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf0er"]
+shader = ExtResource("3_evldt")
+
+[node name="GrassVertexShader" type="Node2D"]
+
+[node name="GrassVisual" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_01ra0")
+position = Vector2(296, 284)
+texture = ExtResource("2_16l8u")
+
+[node name="GrassCode" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yf0er")
+position = Vector2(638, 284)
+texture = ExtResource("2_16l8u")
