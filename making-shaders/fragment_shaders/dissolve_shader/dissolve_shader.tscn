@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://csmb4j1jpvbhu"]
+
+[ext_resource type="Shader" path="res://fragment_shaders/dissolve_shader/dissolve.gdshader" id="1_folsf"]
+[ext_resource type="Shader" uid="uid://7i12xfmsawla" path="res://vertex_shaders/Test_shader.tres" id="1_hndo6"]
+[ext_resource type="Texture2D" uid="uid://dw31mb2xvc06c" path="res://vertex_shaders/moving_grass/grass_256.png" id="2_4v7n7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kiv8d"]
+shader = ExtResource("1_folsf")
+shader_parameter/dissolve_value = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ywj6a"]
+shader = ExtResource("1_hndo6")
+
+[node name="DissolveShader" type="Node2D"]
+
+[node name="Grass256" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kiv8d")
+position = Vector2(292, 238)
+texture = ExtResource("2_4v7n7")
+
+[node name="Line2D" type="Line2D" parent="."]
+material = SubResource("ShaderMaterial_ywj6a")
+points = PackedVector2Array(0, 0, 16, 17, 30, 30, 170, 59, 463, 60, 666, 99, 769, 133, 911, 149, 1105, 123, 1124, 55, 1029, -180)
+width = 20.0
+joint_mode = 2
